@@ -12,7 +12,8 @@
 #include "sub.hpp"
 
 #include <string>
-//#include <cctype>
+#include <cctype>
+#include <ctype.h>
 #include <queue>
 using namespace std;
 
@@ -64,7 +65,60 @@ class Factory{
 	};	
 
 		void calulate(Base* val1, Base* val2){
-			
+			if(operators.size()!=0){
+				string op = operators.front();
+			//as long as there is operations, we perform the calculation with the first operator
+			if(op == "+"){
+				operators.pop();
+				Base* add = new ADD(val1,val2);
+				if(operands.size()!=0){//if there is more operations
+					val2 = operands.front();
+					operands.pop();
+					calculate(add,val2);
+				}
+				output.push(add);
+			}
+			if(op == "-"){
+                                operators.pop();
+                                Base* sub = new SUB(val1,val2);
+                                if(operands.size()!=0){//if there is more operations
+                                        val2 = operands.front();
+                                        operands.pop();
+                                        calculate(sub,val2);
+                                }
+                                output.push(sub);
+                        }
+			if(op == "*"){
+                                operators.pop();
+                                Base* mult = new Mult(val1,val2);
+                                if(operands.size()!=0){//if there is more operations
+                                        val2 = operands.front();
+                                        operands.pop();
+                                        calculate(mult,val2);
+                                }
+                                output.push(mult);
+                        }
+			if(op == "/"){
+                                operators.pop();
+                                Base* div = new DIV(val1,val2);
+                                if(operands.size()!=0){//if there is more operations
+                                        val2 = operands.front();
+                                        operands.pop();
+                                        calculate(div,val2);
+                                }
+                                output.push(div);
+                        }
+			if(op == "**"){
+                                operators.pop();
+                                Base* pow = new POW(val1,val2);
+                                if(operands.size()!=0){//if there is more operations
+                                        val2 = operands.front();
+                                        operands.pop();
+                                        calculate(pow,val2);
+                                }
+                                output.push(pow);
+                        }
+		}	
 	};
 };
 
