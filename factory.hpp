@@ -52,7 +52,7 @@ class Factory{
 			Base* answer;
 
 		
-		if(operations.front() == "+"){
+				if(operations.front() == "+"){
                         		answer  = new ADD(val1, val2);
                 		}
                 		else if(operations.front() == "-"){
@@ -131,6 +131,6 @@ class Factory{
                         }
 		}	
 	};*/
-};
+
 
 #endif //_FACTORY_HPP_
