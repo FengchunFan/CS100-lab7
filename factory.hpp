@@ -39,6 +39,7 @@ class Factory{
 		} else if(*input[i]=='+' or *input[i]=='-' or *input[i]=='*' or *input[i]=='/' or *input[i]=='**'){	;
 			operations.push(input[i]);
 		}
+		}
 
 		queue<Base*> output;
 		output.push(operands.front());
