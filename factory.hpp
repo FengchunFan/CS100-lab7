@@ -28,8 +28,8 @@ class Factory{
 		Factory(){};
 
 		Base* parse(char** input, int length){
-		if(length == 1){
-		string str = static_cast<string>(input);
+		/*if(length == 1){
+		string str = static_cast<string>(input[0]);
 		if(isdigit(str.at(0))){
 			Op* val = new Op(std::stoi(input[0]));
 			return val;
@@ -40,7 +40,7 @@ class Factory{
 	} else if (length % 2 == 0){
 			cout << "invalid!" << endl;
 			return nullptr;
-	} else {
+	} else {*/
 		for(int i = 0; i < length; ++i){
 		char* c = input[i];
 		//need to declare if c is operand or operator
@@ -60,11 +60,10 @@ class Factory{
 
 		calculate(val1,val2); // output will be stored into the start of output
 		Base* answer = output.front();
-		return answer;
-		}
-	};	
+		return answer;	
+	};
 
-		void calulate(Base* val1, Base* val2){
+		void calculate(Base* val1, Base* val2){
 			if(operators.size()!=0){
 				string op = operators.front();
 			//as long as there is operations, we perform the calculation with the first operator
@@ -100,7 +99,7 @@ class Factory{
                         }
 			if(op == "/"){
                                 operators.pop();
-                                Base* div = new DIV(val1,val2);
+                                Base* div = new Div(val1,val2);
                                 if(operands.size()!=0){//if there is more operations
                                         val2 = operands.front();
                                         operands.pop();
