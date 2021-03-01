@@ -22,7 +22,7 @@ class Factory{
 		//used for calculating results, stored all the necessary value
 		queue<Base*> operands;
 		queue<string> operations;
-
+		queue<Base*> output;
 	public:
 		Factory(){};
 
@@ -41,7 +41,6 @@ class Factory{
 		}
 		}
 
-		queue<Base*> output;
 		output.push(operands.front());
 		operands.pop();
 	
@@ -72,6 +71,7 @@ class Factory{
                 		operations.pop();	
 			}
 			return output.front();
+			output.pop();
 		};
 		//return output.front();	
 	};
