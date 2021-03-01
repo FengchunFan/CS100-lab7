@@ -21,52 +21,61 @@ class Factory{
 	private:
 		//used for calculating results, stored all the necessary value
 		queue<Base*> operands;
-		queue<string> operators;
-		queue<Base*> output;
+		queue<string> operations;
 
 	public:
 		Factory(){};
 
 		Base* parse(char** input, int length){
-		/*if(length == 1){
-		string str = static_cast<string>(input[0]);
-		if(isdigit(str.at(0))){
-			Op* val = new Op(std::stoi(input[0]));
-			return val;
-		} else {
-			cout << "invalid!" << endl;
-			return nullptr;
-		}
-	} else if (length % 2 == 0){
-			cout << "invalid!" << endl;
-			return nullptr;
-	} else {*/
-		char* c;
-		double val = 0;
+		
 		for(int i = 1; i < length; ++i){
-		c = input[i];
+	
 		//need to declare if c is operand or operator
-		if(c=="0" or c=="1" or c=="2" or c=="3" or c=="4" or c=="5" or c=="6" or c=="7" or c=="8" or c=="9"){
-			val = std::stod(c);
+		
+		if(isdigit(*input[i])) {
+			int val  = atoi(input[i]);
 			Base* temp = new Op(val);
 			operands.push(temp);
-		} 
-		if(c=="+" or c=="-" or c=="*" or c=="/" or c=="**"){	
-			string temp = c;
-			operators.push(temp);
+		} else if(*input[i]=='+' or *input[i]=='-' or *input[i]=='*' or *input[i]=='/' or *input[i]=='**'){	;
+			operations.push(input[i]);
 		}
-	}//classified whether stuff in the input is operands or operators, and store value into queue
-		Base* val1 = operands.front();
-		operands.pop();
-		Base* val2 = operands.front();
-		operands.pop();
 
-		calculate(val1,val2); // output will be stored into the start of output
-		Base* answer = output.front();
-		return answer;	
+		queue<Base*> output;
+		output.push(operands.front());
+		operands.pop();
+	
+		while(!operations.empty()){
+			Base* val1 = output.front();
+			output.pop();
+			Base* val2 = operands.front();
+			operands.pop();
+			Base* answer;
+
+		
+		if(operations.front() == "+"){
+                        		answer  = new ADD(val1, val2);
+                		}
+                		else if(operations.front() == "-"){
+                        		answer  = new SUB(val1, val2);
+                		}
+                		else if(operations.front() == "*"){
+                        		answer  = new Mult(val1, val2);
+                		}
+                		else if(operations.front() == "/"){
+                        		answer = new Div(val1, val2);
+                		} 
+                		else if(operations.front() == "**"){
+                        		answer = new POW(val1, val2);
+                		}
+                		output.push(answer);
+                		operations.pop();	
+			}
+			return output.front();
+		};
+		//return output.front();	
 	};
 
-		void calculate(Base* val1, Base* val2){
+		/*void calculate(Base* val1, Base* val2){
 			if(operators.size()!=0){
 				string op = operators.front();
 			//as long as there is operations, we perform the calculation with the first operator
@@ -121,7 +130,7 @@ class Factory{
                                 output.push(pow);
                         }
 		}	
-	};
+	};*/
 };
 
 #endif //_FACTORY_HPP_
