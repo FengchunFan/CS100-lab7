@@ -41,14 +41,17 @@ class Factory{
 			cout << "invalid!" << endl;
 			return nullptr;
 	} else {*/
-		for(int i = 0; i < length; ++i){
-		char* c = input[i];
+		char* c;
+		double val = 0;
+		for(int i = 1; i < length; ++i){
+		c = input[i];
 		//need to declare if c is operand or operator
 		if(c=="0" or c=="1" or c=="2" or c=="3" or c=="4" or c=="5" or c=="6" or c=="7" or c=="8" or c=="9"){
-			double val = std::stod(c);
+			val = std::stod(c);
 			Base* temp = new Op(val);
 			operands.push(temp);
-		} else if (c=="+" or c=="-" or c=="*" or c=="/" or c=="**"){
+		} 
+		if(c=="+" or c=="-" or c=="*" or c=="/" or c=="**"){	
 			string temp = c;
 			operators.push(temp);
 		}
@@ -70,41 +73,41 @@ class Factory{
 			if(op == "+"){
 				operators.pop();
 				Base* add = new ADD(val1,val2);
-				if(operands.size()!=0){//if there is more operations
-					val2 = operands.front();
+			if(operands.size()!=0){//if there is more operations	
+				val2 = operands.front();
 					operands.pop();
-					calculate(add,val2);
 				}
+				calculate(add,val2);
 				output.push(add);
 			}
 			if(op == "-"){
                                 operators.pop();
                                 Base* sub = new SUB(val1,val2);
-                                if(operands.size()!=0){//if there is more operations
-                                        val2 = operands.front();
+                         if(operands.size()!=0){//if there is more operations
+			             val2 = operands.front();
                                         operands.pop();
-                                        calculate(sub,val2);
                                 }
+				calculate(sub,val2);
                                 output.push(sub);
                         }
 			if(op == "*"){
                                 operators.pop();
                                 Base* mult = new Mult(val1,val2);
-                                if(operands.size()!=0){//if there is more operations
-                                        val2 = operands.front();
+                        if(operands.size()!=0){//if there is more operations   
+			            val2 = operands.front();
                                         operands.pop();
-                                        calculate(mult,val2);
                                 }
+				calculate(mult,val2);
                                 output.push(mult);
                         }
 			if(op == "/"){
                                 operators.pop();
                                 Base* div = new Div(val1,val2);
-                                if(operands.size()!=0){//if there is more operations
-                                        val2 = operands.front();
+                        if(operands.size()!=0){//if there is more operations
+				       val2 = operands.front();
                                         operands.pop();
-                                        calculate(div,val2);
                                 }
+				calculate(div,val2);
                                 output.push(div);
                         }
 			if(op == "**"){
@@ -113,8 +116,8 @@ class Factory{
                                 if(operands.size()!=0){//if there is more operations
                                         val2 = operands.front();
                                         operands.pop();
-                                        calculate(pow,val2);
                                 }
+				calculate(pow,val2);
                                 output.push(pow);
                         }
 		}	
