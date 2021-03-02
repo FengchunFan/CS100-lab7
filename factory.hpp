@@ -28,51 +28,47 @@ class Factory{
 
 		Base* parse(char** input, int length){
 		
-		for(int i = 1; i < length; ++i){
-	
+		for(int i = 1; i < length; ++i){	
 		//need to declare if c is operand or operator
-		
-		if(isdigit(*input[i])) {
+			if(isdigit(*input[i])) {
 			int val  = atoi(input[i]);
 			Base* temp = new Op(val);
 			operands.push(temp);
 		} else if(*input[i]=='+' or *input[i]=='-' or *input[i]=='*' or *input[i]=='/' or *input[i]=='**'){	;
-			//if(!isdigit(*input[i+1])){
-			//return nullptr;
-			//}else{
+			if(!isdigit(*input[i+1])){
+			return nullptr;
+			}else{
 			operations.push(input[i]);
-			//} the system will return segmentation fault if fail
+			} //the system will return segmentation fault if fail
 		}
 		}
 
 		output.push(operands.front());
 		operands.pop();
-	
 		while(!operations.empty()){
 			Base* val1 = output.front();
 			output.pop();
 			Base* val2 = operands.front();
 			operands.pop();
 			Base* answer;
-
 		
-				if(operations.front() == "+"){
-                        		answer  = new ADD(val1, val2);
-                		}
-                		else if(operations.front() == "-"){
-                        		answer  = new SUB(val1, val2);
-                		}
-                		else if(operations.front() == "*"){
-                        		answer  = new Mult(val1, val2);
-                		}
-                		else if(operations.front() == "/"){
-                        		answer = new Div(val1, val2);
-                		} 
-                		else if(operations.front() == "**"){
-                        		answer = new POW(val1, val2);
-                		}
-                		output.push(answer);
-                		operations.pop();	
+			if(operations.front() == "+"){
+                        	answer  = new ADD(val1, val2);
+                	}
+                	else if(operations.front() == "-"){
+                        	answer  = new SUB(val1, val2);
+                	}
+                	else if(operations.front() == "*"){
+                        	answer  = new Mult(val1, val2);
+                	}
+                	else if(operations.front() == "/"){
+                        	answer = new Div(val1, val2);
+                	} 
+                	else if(operations.front() == "**"){
+                        	answer = new POW(val1, val2);
+                	}
+                	output.push(answer);
+                	operations.pop();	
 			}
 			return output.front();
 			output.pop();
