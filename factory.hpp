@@ -37,11 +37,11 @@ class Factory{
 			Base* temp = new Op(val);
 			operands.push(temp);
 		} else if(*input[i]=='+' or *input[i]=='-' or *input[i]=='*' or *input[i]=='/' or *input[i]=='**'){	;
-			//if(!isdigit(*input[i+1])){
-			//return nullptr;
-			//}else{
+			if(!isdigit(*input[i+1])){
+			return nullptr;
+			}else{
 			operations.push(input[i]);
-			//} the system will return segmentation fault if fail
+			}// the system will return segmentation fault if fail
 		}
 		}
 
