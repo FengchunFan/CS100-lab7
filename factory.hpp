@@ -36,6 +36,8 @@ class Factory{
 			operands.push(temp);
 		} else if(*input[i]=='+' or *input[i]=='-' or *input[i]=='*' or *input[i]=='/' or *input[i]=='**'){	;
 			if(!isdigit(*input[i+1])){
+			std::cout<<"ERROR: invalid input\n";
+			//throw std::invalid_argument("Not a digit.");
 			return nullptr;
 			}else{
 			operations.push(input[i]);
