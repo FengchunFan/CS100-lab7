@@ -164,6 +164,20 @@ TEST(Factory, zeroPow) {
         EXPECT_EQ("(4.000000**0.000000)", calc->stringify());
         EXPECT_EQ(1, calc->evaluate());
 }
+TEST(Factory, onePow) {
+        Factory* factory = new Factory();
+
+        char* test_val[4];
+        test_val[0] = "./calculator";
+        test_val[1] = "4";
+        test_val[2] = "**";
+        test_val[3] = "1";
+
+        Base* calc = factory->parse(test_val, 4);
+
+        EXPECT_EQ("(4.000000**1.000000)", calc->stringify());
+        EXPECT_EQ(4, calc->evaluate());
+}
 
 
 TEST(Factory, MultipleOperations) {
@@ -203,6 +217,32 @@ TEST(Factory, invalidInput) {
         Base* calc = factory->parse(test_val, 4);
 
         EXPECT_EQ(nullptr, calc);
+}
+TEST(Factory, invalidNegInput) {
+        Factory* factory = new Factory();
+
+        char* test_val[4];
+        test_val[0] = "./calculator";
+        test_val[1] = "-4";
+        test_val[2] = "**";
+        test_val[3] = "3";
+
+        Base* calc = factory->parse(test_val, 4);
+
+        EXPECT_EQ(nullptr, calc);
+}
+TEST(Factory, invalidDecimalInput) {
+        Factory* factory = new Factory();
+
+        char* test_val[4];
+        test_val[0] = "./calculator";
+        test_val[1] = "4.5";
+        test_val[2] = "+";
+        test_val[3] = "3.2";
+
+        Base* calc = factory->parse(test_val, 4);
+        EXPECT_EQ("(4.000000+3.000000)", calc->stringify());
+        EXPECT_EQ(7, calc->evaluate());
 }
 
 
