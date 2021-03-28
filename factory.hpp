@@ -28,13 +28,15 @@ class Factory{
 
 		Base* parse(char** input, int length){
 		
+		int val = 0;
+		Base* temp = nullptr;	
 		for(int i = 1; i < length; ++i){
 	
 		//need to declare if c is operand or operator
 		
 		if(isdigit(*input[i])) {
-			int val  = atoi(input[i]);
-			Base* temp = new Op(val);
+			val  = atoi(input[i]);
+			temp = new Op(val);
 			operands.push(temp);
 		} else if(*input[i]=='+' or *input[i]=='-' or *input[i]=='*' or *input[i]=='/' or *input[i]=='**'){	;
 			if(!isdigit(*input[i+1])){
